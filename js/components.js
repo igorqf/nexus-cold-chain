@@ -1,13 +1,18 @@
 // Reusable UI Components
 
 const Components = {
-    Sidebar: (activePage) => `
+    Sidebar: (activePage) => {
+        const isCadastroOpen = ['admin-companies', 'admin-bases', 'admin-users', 'admin-roles', 'admin-assets', 'admin-sensors', 'admin-products', 'admin-routes'].includes(activePage);
+        const isAdminOpen = ['admin-integrations', 'admin-audits', 'admin-settings'].includes(activePage);
+
+        return `
         <aside class="sidebar">
             <div class="sidebar-header">
                 <i data-lucide="snowflake" class="brand-icon"></i>
                 <h1>Cold Chain<br>Intelligence</h1>
             </div>
             <ul class="nav-links">
+                <!-- Old items -->
                 <li class="nav-item">
                     <a href="#" class="nav-link ${activePage === 'dashboard' ? 'active' : ''}" onclick="app.navigate('dashboard')">
                         <i data-lucide="layout-dashboard"></i>
@@ -15,7 +20,7 @@ const Components = {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link ${activePage === 'alerts' ? 'active' : ''}" onclick="app.navigate('alerts')">
+                    <a href="#" class="nav-link ${activePage === 'alerts' || activePage === 'admin-alerts' ? 'active' : ''}" onclick="app.navigate('alerts')">
                         <i data-lucide="bell-ring"></i>
                         Alertas e Anomalias
                     </a>
@@ -45,7 +50,7 @@ const Components = {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link ${activePage === 'rules' ? 'active' : ''}" onclick="app.navigate('rules')">
+                    <a href="#" class="nav-link ${activePage === 'rules' || activePage === 'admin-parameters' ? 'active' : ''}" onclick="app.navigate('rules')">
                         <i data-lucide="settings-2"></i>
                         Regras de Operação
                     </a>
@@ -56,6 +61,44 @@ const Components = {
                         Relatórios
                     </a>
                 </li>
+
+                <!-- Cadastros Toggle -->
+                <details class="nav-group" ${isCadastroOpen ? 'open' : ''}>
+                    <summary class="nav-link" style="justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i data-lucide="folder-plus"></i>
+                            <span>Cadastros</span>
+                        </div>
+                        <i data-lucide="chevron-down" size="16"></i>
+                    </summary>
+                    <div class="nav-group-content">
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-companies' ? 'active' : ''}" onclick="app.navigate('admin-companies')">Empresas</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-bases' ? 'active' : ''}" onclick="app.navigate('admin-bases')">Bases Operacionais</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-users' ? 'active' : ''}" onclick="app.navigate('admin-users')">Usuários</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-roles' ? 'active' : ''}" onclick="app.navigate('admin-roles')">Perfis e Permissões</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-assets' ? 'active' : ''}" onclick="app.navigate('admin-assets')">Ativos</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-sensors' ? 'active' : ''}" onclick="app.navigate('admin-sensors')">Sensores / Dispositivos</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-products' ? 'active' : ''}" onclick="app.navigate('admin-products')">Produtos</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-routes' ? 'active' : ''}" onclick="app.navigate('admin-routes')">Rotas</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-occurrences' ? 'active' : ''}" onclick="app.navigate('admin-occurrences')">Ocorrências</a></li>
+                    </div>
+                </details>
+
+                <!-- Administração Toggle -->
+                <details class="nav-group" ${isAdminOpen ? 'open' : ''}>
+                    <summary class="nav-link" style="justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i data-lucide="settings"></i>
+                            <span>Administração</span>
+                        </div>
+                        <i data-lucide="chevron-down" size="16"></i>
+                    </summary>
+                    <div class="nav-group-content">
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-integrations' ? 'active' : ''}" onclick="app.navigate('admin-integrations')">Integrações</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-audits' ? 'active' : ''}" onclick="app.navigate('admin-audits')">Auditoria</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link ${activePage === 'admin-settings' ? 'active' : ''}" onclick="app.navigate('admin-settings')">Configurações</a></li>
+                    </div>
+                </details>
             </ul>
             <div class="sidebar-footer" onclick="app.navigate('login')">
                 <div class="user-info">
@@ -65,7 +108,8 @@ const Components = {
                 <i data-lucide="log-out"></i>
             </div>
         </aside>
-    `,
+        `;
+    },
 
     Header: (title, breadcrumbs) => `
         <header class="top-header">

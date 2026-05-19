@@ -113,6 +113,24 @@ body {
     border-left-color: var(--accent-color);
 }
 
+details.nav-group summary {
+    cursor: pointer;
+    list-style: none; /* Hide default arrow */
+}
+details.nav-group summary::-webkit-details-marker {
+    display: none;
+}
+details.nav-group[open] summary .lucide-chevron-down {
+    transform: rotate(180deg);
+}
+details.nav-group summary .lucide-chevron-down {
+    transition: transform 0.2s ease;
+}
+.nav-group-content {
+    padding-left: 24px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
 .sidebar-footer {
     padding: 24px;
     border-top: 1px solid var(--secondary-color);

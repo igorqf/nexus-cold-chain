@@ -17,14 +17,30 @@ const app = {
         const routes = {
             'login': Pages.Login,
             'dashboard': Pages.Dashboard,
-            'vehicle-detail': Pages.VehicleDetail || Pages.Dashboard, // Fallback if not loaded
+            'vehicle-detail': Pages.VehicleDetail || Pages.Dashboard,
             'alerts': Pages.Alerts || Pages.Dashboard,
             'maintenance': Pages.Maintenance || Pages.Dashboard,
             'traceability': Pages.Traceability || Pages.Dashboard,
             'executive': Pages.Executive || Pages.Dashboard,
             'sensors': Pages.Sensors || Pages.Dashboard,
             'rules': Pages.Rules || Pages.Dashboard,
-            'reports': Pages.Reports || Pages.Dashboard
+            'reports': Pages.Reports || Pages.Dashboard,
+            
+            // Admin Modules
+            'admin-users': Pages.AdminUsers,
+            'admin-roles': Pages.AdminRoles,
+            'admin-companies': Pages.AdminCompanies,
+            'admin-bases': Pages.AdminBases,
+            'admin-assets': Pages.AdminAssets,
+            'admin-sensors': Pages.AdminSensors,
+            'admin-products': Pages.AdminProducts,
+            'admin-routes': Pages.AdminRoutes,
+            'admin-parameters': Pages.AdminParameters,
+            'admin-alerts': Pages.AdminAlertsConfig,
+            'admin-occurrences': Pages.AdminOccurrences,
+            'admin-integrations': Pages.AdminIntegrations,
+            'admin-audits': Pages.AdminAudits,
+            'admin-settings': Pages.AdminSettings
         };
 
         const pageModule = routes[app.currentPage];
