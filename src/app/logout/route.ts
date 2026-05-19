@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 export async function GET(request: Request) {
   try {
     const supabase = await createClient()
+    // @ts-ignore - Supabase type resolution bug on Vercel
     await supabase.auth.signOut()
   } catch (error) {
     console.error('Error signing out from Supabase:', error)

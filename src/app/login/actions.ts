@@ -9,6 +9,7 @@ export async function login(formData: FormData) {
 
   const supabase = await createClient()
 
+  // @ts-ignore - Supabase type resolution bug on Vercel
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
