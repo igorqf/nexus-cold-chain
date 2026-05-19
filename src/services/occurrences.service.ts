@@ -1,11 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 
-export const CompaniesService = {
+export const OccurrencesService = {
   async list() {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('companies')
-      .select('*')
+      .from('occurrences')
+      .select('*, alert_events(message), companies(name)')
       .eq('status', 'active')
       .is('deleted_at', null)
     if (error) throw error
@@ -15,7 +15,7 @@ export const CompaniesService = {
   async getById(id: string) {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('companies')
+      .from('occurrences')
       .select('*')
       .eq('id', id)
       .single()
@@ -26,7 +26,7 @@ export const CompaniesService = {
   async create(payload: any) {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('companies')
+      .from('occurrences')
       .insert([payload])
       .select()
       .single()
@@ -37,7 +37,7 @@ export const CompaniesService = {
   async update(id: string, payload: any) {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('companies')
+      .from('occurrences')
       .update({ ...payload, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -49,11 +49,8 @@ export const CompaniesService = {
   async softDelete(id: string) {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('companies')
-      .update({ 
-        status: 'inactive', 
-        deleted_at: new Date().toISOString() 
-      })
+      .from('occurrences')
+      .update({ status: 'inactive', deleted_at: new Date().toISOString() })
       .eq('id', id)
       .select()
       .single()
