@@ -1,11 +1,14 @@
 import { login } from './actions'
 import { Snowflake } from 'lucide-react'
 
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
 // Next.js page component
-export default async function LoginPage(props: {
-  searchParams: Promise<{ message: string }>
-}) {
-  const searchParams = await props.searchParams
+export default async function LoginPage(props: Props) {
+  const resolvedSearchParams = await props.searchParams
+  const message = typeof resolvedSearchParams?.message === 'string' ? resolvedSearchParams.message : ''
 
   return (
     <div className="min-h-screen w-full flex bg-slate-50">
@@ -61,9 +64,9 @@ export default async function LoginPage(props: {
               />
             </div>
 
-            {searchParams?.message && (
+            {message && (
               <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
-                {searchParams.message}
+                {message}
               </div>
             )}
 
